@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ShopData from './shopData';
-import PreviewCollection from '../../components/preview_collection/PreviewColection'
+import PreviewCollection from '../../components/preview_collection/PreviewColection';
 
 class shopPage extends Component {
   constructor (props) {
-    super (props) 
+    super (props);
 
     this.state = {
       collection: ShopData
@@ -13,15 +13,12 @@ class shopPage extends Component {
 
 
   render () {
-    const { collections } = this.state;
-    console.log(collections) 
+    const collections = this.state.collection.map(({id, ...otherCollectionProps }) => (
+      < PreviewCollection key={id} {...otherCollectionProps} />
+    ));
     return (
       <div className='shop-page' > 
-      {/* {
-        collections.map(({id, ...otherCollectionProps }) => (
-          < PreviewCollection key={id} {...otherCollectionProps} />
-        ))
-      } */}
+        { collections }
     </div>  
     )
   }
