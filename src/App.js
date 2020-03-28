@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -10,6 +10,7 @@ import Header from './components/header/Header';
 import SignIn_SignUp from './pages/signIn_signUp/signIn_signUp';
 import { auth, createUserProfileDocument } from './fireBase/firebase';
 import { setCurrentUser } from './redux/user/user.actions';
+import SignInSignUp from './pages/signIn_signUp/signIn_signUp';
 
 class App extends Component {
   // this close the connection if the page is refresh
@@ -46,7 +47,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignIn_SignUp} />
+          <Route
+            exact
+            path="/signin"
+            render={() => (this.props.currentUser ? <Redirect to="/" /> : <SignInSignUp />)}
+          />
           <HomePage />
         </Switch>
       </div>
@@ -54,8 +59,12 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
