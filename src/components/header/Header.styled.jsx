@@ -1,8 +1,5 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from 'react-router-dom';
-/* allow us to write css blocks*/
-const Options = css` 
-`;
 
 export const HeaderContainer = styled.header`
   height: 70px;

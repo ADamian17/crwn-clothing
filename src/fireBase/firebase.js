@@ -2,7 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/firebase-firestore';
 import 'firebase/auth';
 
-
 const config = {
   apiKey: "AIzaSyAQLKZi2YJMCwYBA68_g5WGZ5f51Zogh4o",
   authDomain: "crwn-db-f094f.firebaseapp.com",
@@ -38,7 +37,38 @@ export const createUserProfileDocument = async ( userAuth, additionalData ) => {
   }
 
   return userRef
+};
+
+export const addCollectionAndDocs = async (collectionKey, objsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+  objsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj); 
+  })
+
+  return await batch.commit()
 }
+
+export const convertColectionsSnapsotToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const {title, items} = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  });
+
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+
+    return acc
+  }, {});
+} 
 
 firebase.initializeApp(config);
 
