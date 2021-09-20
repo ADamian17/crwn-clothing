@@ -1,21 +1,15 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
 
-import CollectionOverview from '../../components/collection-overview/collection-overview';
-import CollectionPage from '../Collection/Collection';
-
-import WithSpinner from '../../components/withSpinner';
-
-const CollectionOverViewWithSpinner = WithSpinner(CollectionOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import CollectionOverviewContainer from '../../components/collection-overview/Collection-overview.container';
+import CollectionContainer from '../Collection/Collection.container';
 
 const ShopPage = (props) => {
 
   const dispatch = useDispatch()
-  const isFetching = useSelector(({ shop }) => shop.isFetching);
   const { match } = props
 
   useEffect(() => {
@@ -24,18 +18,10 @@ const ShopPage = (props) => {
 
   return (
     <div className='shop-page' >
-      <Route exact path={`${match.path}`} render={(props) =>
-        <CollectionOverViewWithSpinner
-          isLoading={isFetching}
-          {...props} />} />
-
-      <Route path={`${match.path}/:collection`} render={(props) =>
-        <CollectionPageWithSpinner
-          isLoading={isFetching}
-          {...props} />} />
+      <Route exact path={`${match.path}`} component={CollectionOverviewContainer} />
+      <Route path={`${match.path}/:collection`} component={CollectionContainer} />
     </div>
   )
-
 }
 
 
