@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CustomBtn } from './customButton.styled';
 
-const customButton = ({ children, rest }) => {
+const customButton = ({ children, ...rest }) => {
   return (
     <CustomBtn {...rest}>
       {children}

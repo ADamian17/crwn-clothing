@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionStart } from '../../redux/shop/shop.actions';
 
 import CollectionOverviewContainer from '../../components/collection-overview/Collection-overview.container';
 import CollectionContainer from '../Collection/Collection.container';
@@ -13,7 +13,7 @@ const ShopPage = (props) => {
   const { match } = props
 
   useEffect(() => {
-    dispatch(fetchCollectionsStartAsync())
+    dispatch(fetchCollectionStart())
   }, [])
 
   return (
@@ -24,5 +24,6 @@ const ShopPage = (props) => {
   )
 }
 
-
 export default ShopPage;
+
+/* sagas are functions that conditionals runs depending in the expecific action */

@@ -15,29 +15,29 @@ import SignInSignUp from './pages/signIn_signUp/signIn_signUp';
 import { selectCurrentUser } from './redux/user/user.selector';
 class App extends Component {
   // this close the connection if the page is refresh
-  usubscribeFromAuth = null;
+  // usubscribeFromAuth = null;
 
   componentDidMount() {
     const { setCurrentUser} = this.props;
-    this.usubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // this.usubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot((snapshot) => {
-          setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data(),
-          });
-        });
-      }
+    //     userRef.onSnapshot((snapshot) => {
+    //       setCurrentUser({
+    //         id: snapshot.id,
+    //         ...snapshot.data(),
+    //       });
+    //     });
+    //   }
 
-      setCurrentUser(userAuth);
-    });
+    //   setCurrentUser(userAuth);
+    // });
   }
 
-  componentWillUnmount() {
-    this.usubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.usubscribeFromAuth();
+  // }
 
   render() {
     return (
