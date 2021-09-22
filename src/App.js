@@ -9,8 +9,7 @@ import HomePage from './pages/Homepage/Homepage';
 import ShopPage from './pages/shop/Shop';
 import Checkoutpage from './pages/Checkout/Checkout.jsx';
 import Header from './components/header/Header';
-import { auth, createUserProfileDocument } from './fireBase/firebase';
-import { setCurrentUser } from './redux/user/user.actions';
+
 import SignInSignUp from './pages/signIn_signUp/signIn_signUp';
 import { selectCurrentUser } from './redux/user/user.selector';
 class App extends Component {
@@ -18,7 +17,6 @@ class App extends Component {
   // usubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser} = this.props;
     // this.usubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
     //   if (userAuth) {
     //     const userRef = await createUserProfileDocument(userAuth);
@@ -66,8 +64,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
