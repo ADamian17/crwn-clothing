@@ -14,7 +14,7 @@ const ShopPage = (props) => {
 
   useEffect(() => {
     dispatch(fetchCollectionStart())
-  }, [])
+  }, [dispatch])
 
   return (
     <div className='shop-page' >
