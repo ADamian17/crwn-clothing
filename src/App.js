@@ -16,7 +16,7 @@ import { checkUserSession } from './redux/user/user.actions';
 
 function App () {
   const dispatch = useDispatch()
-
+  const { currentUser } = useSelector(({user}) => user)
 
   useEffect(() => {
     dispatch(checkUserSession())
@@ -35,8 +35,7 @@ function App () {
         <Route
           exact
           path="/signin"
-          render={() =>
-            this.props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
+          render={() => currentUser ? <Redirect to="/" /> : <SignInSignUp />
           }
         />
         <HomePage />

@@ -1,90 +1,90 @@
-import React, { Component }  from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../formInput/FormtInput';
 import CustomButton from '../customeButtom/customeButtom';
 
-import { auth, createUserProfileDocument } from '../../fireBase/firebase';
+import { signUpStart } from '../../redux/user/user.actions';
 
 import './signUp.scss';
 
-class SignUp extends Component {
+function SignUp() {
 
-  constructor () {
-    super();
+  const dispatch = useDispatch()
 
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
-
-  }
+  const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState('')
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
 
 
-  handleSubmit = async event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
-    const {displayName, email, password, confirmPassword} = this.state;
-    if ( password !== confirmPassword ) {
-      alert("passwords don't match")
-      return
+    if (password !== confirmPassword) {
+      return setError("passwords don't match")
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword( email, password );
-
-     await createUserProfileDocument(user, {displayName})
-
-     this.setState({
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-     })
-    } catch ( err ) {
-      console.log(err)
+    if (displayName === '' ||
+      email === '' ||
+      password === '' ||
+      confirmPassword === ''
+    ) {
+      return setError('Fields can not be empty')
     }
-  };
-  
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+
+    dispatch(signUpStart({ email, displayName, password }))
   };
 
-  render() {
-    const {displayName, email, password, confirmPassword} = this.state
-    return (
-      <div className='sign-up'>
+  return (
+    <div className='sign-up'>
 
-        <h2 className='title'>I do not have a account</h2>
-        <span>Sign up with your email and password</span>
+      <h2 className='title'>I do not have a account</h2>
+      <span>Sign up with your email and password</span>
 
-        <form className='sign-up-form' onSubmit={this.handleSubmit}>
-          <FormInput type='text' name='displayName' 
-            value={displayName} onChange={this.handleChange} 
-            label='Display Name' require="true" />
+      {
+        error && <span>{error}</span>
+      }
 
-          <FormInput type='text' name='email' 
-            value={email} onChange={this.handleChange} 
-            label='Email' require="true" />
+      <form className='sign-up-form' onSubmit={handleSubmit}>
+        <FormInput
+          type='text'
+          name='displayName'
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          label='Display Name'
+          required />
 
-          <FormInput type='password' name='password' 
-            value={password} onChange={this.handleChange} 
-            label='Password' require="true" />
+        <FormInput
+          type='text'
+          name='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          label='Email' require="true" />
 
-          <FormInput type='password' name='confirmPassword' 
-            value={confirmPassword} onChange={this.handleChange} 
-            label='Confirm Password'require="true" />
+        <FormInput
+          type='password'
+          name='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          label='Password'
+          required />
 
-            <CustomButton type='submit'>Sign Up</CustomButton>
-        </form>
+        <FormInput
+          type='password'
+          name='confirmPassword'
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          label='Confirm Password'
+          required />
 
-      </div>
-    )
-  }
+        <CustomButton type='submit'>Sign Up</CustomButton>
+      </form>
+
+    </div>
+  )
+
 }
 
 export default SignUp;
