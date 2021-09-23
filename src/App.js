@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { selectCurrentUser } from './redux/user/user.selector';
 import './App.css';
 
 import HomePage from './pages/Homepage/Homepage';
@@ -14,7 +14,7 @@ import { checkUserSession } from './redux/user/user.actions';
 
 function App () {
   const dispatch = useDispatch()
-  const { currentUser } = useSelector(({user}) => user)
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     dispatch(checkUserSession())

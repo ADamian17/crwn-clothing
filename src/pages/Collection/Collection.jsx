@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router';
 
 import { selectCollection } from '../../redux/shop/shop.selector';
 
@@ -8,9 +9,17 @@ import CollectionItem from '../../components/collection-Item/CollectionItem';
 
 import './Collection.scss';
 
-const CollectionPage = ({ collection }) => {
-  console.log({ collection })
+const CollectionPage = () => {
+  const params = useParams()
+  const collection = useSelector(selectCollection(params.collection))
   const { title, items } = collection;
+
+  /*  
+    useMemo is for ogjects
+    useCallback is for function
+    
+    they are use when you don't want a function our obj to be reinitialize between renders 
+  */
 
   return (
     <div className="collection-page">
@@ -25,8 +34,4 @@ const CollectionPage = ({ collection }) => {
   )
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collection)(state)
-});
-
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;
