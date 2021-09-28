@@ -1,4 +1,3 @@
-import {firestore, convertColectionsSnapsotToMap } from '../../fireBase/firebase';
 import ShopTypes from "./shop.types";
 
 export const fetchCollectionStart = () => ({

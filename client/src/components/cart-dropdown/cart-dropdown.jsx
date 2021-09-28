@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { createStructuredSelector } from 'reselect'
-import { withRouter, useParams, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+
+import { useHistory } from 'react-router-dom'
 
 import CustomButton from '../customeButtom/customeButtom';
 import CartItem from '../cart-item/cart-item';
@@ -43,4 +43,4 @@ const CartDropdown = (props) => {
   );
 };
 
-export default withRouter(CartDropdown);
+export default CartDropdown;

@@ -1,4 +1,4 @@
-export default {
+const UserTypes = {
   GOOGLE_SIGN_IN_START: 'GOOGLE_SIGN_IN_START',
   EMAIL_SIGN_IN_START: 'EMAIL_SIGN_IN_START',
   
@@ -15,3 +15,5 @@ export default {
   SIGN_UP_SUCCESS: 'SIGN_UP_SUCCESS',
   SIGN_UP_FAILURE: 'SIGN_UP_FAILURE',
 };
+
+export default UserTypes;
