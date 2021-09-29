@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selector';
-import './App.css';
 
 import HomePage from './pages/Homepage/Homepage';
 import ShopPage from './pages/shop/Shop';
@@ -11,6 +10,8 @@ import Header from './components/header/Header';
 
 import SignInSignUp from './pages/signIn_signUp/signIn_signUp';
 import { checkUserSession } from './redux/user/user.actions';
+
+import { GlobalStyle } from './global.style';
 
 function App () {
   const dispatch = useDispatch()
@@ -21,7 +22,8 @@ function App () {
   }, [dispatch])
 
   return (
-    <div>
+    <>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -35,7 +37,7 @@ function App () {
         />
         <HomePage />
       </Switch>
-    </div>
+    </>
   );
 }
 
