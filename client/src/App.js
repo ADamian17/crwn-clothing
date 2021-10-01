@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selector';
-
-import HomePage from './pages/Homepage/Homepage';
-import ShopPage from './pages/shop/Shop';
-import Checkoutpage from './pages/Checkout/Checkout.jsx';
-import Header from './components/header/Header';
-
-import SignInSignUp from './pages/signIn_signUp/signIn_signUp';
 import { checkUserSession } from './redux/user/user.actions';
 
 import { GlobalStyle } from './global.style';
+
+import Header from './components/header/Header';
+import Spinner from './components/Spinner';
+
+const HomePage = lazy(() => import('./pages/Homepage/Homepage'));
+const ShopPage = lazy(() => import('./pages/shop/Shop'));
+const Checkoutpage = lazy(() => import('./pages/Checkout/Checkout.jsx')) 
+const SignInSignUp = lazy(() => import('./pages/signIn_signUp/signIn_signUp'));
+
+
 
 function App () {
   const dispatch = useDispatch()
@@ -26,16 +29,28 @@ function App () {
       <GlobalStyle />
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route exact path="/checkout" component={Checkoutpage} />
-        <Route
-          exact
-          path="/signin"
-          render={() => currentUser ? <Redirect to="/" /> : <SignInSignUp />
-          }
-        />
-        <HomePage />
+
+        <Suspense fallback={<Spinner />}>
+          <Route 
+            exact 
+            path="/" 
+            component={HomePage} />
+            
+          <Route 
+            path="/shop" 
+            component={ShopPage} />
+
+          <Route 
+            exact 
+            path="/checkout" 
+            component={Checkoutpage} />
+
+          <Route
+            exact
+            path="/signin"
+            render={() => currentUser ? <Redirect to="/" /> : <SignInSignUp />
+            } />
+        </Suspense>
       </Switch>
     </>
   );

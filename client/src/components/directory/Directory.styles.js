@@ -9,5 +9,5 @@ import styled from "styled-components"
 
 export const Row = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(1fr, 2fr));
 `;
