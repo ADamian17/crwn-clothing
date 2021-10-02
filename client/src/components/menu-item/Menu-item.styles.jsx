@@ -18,7 +18,7 @@ export const MenuItemContainer = styled.article`
   border: 1px solid black;
   overflow: hidden;
 
-  grid-column: ${({ id }) => gridColums[`${id}`]};
+  grid-column: ${({ id }) => gridColums[id]};
   grid-row: ${({ id }) => id === 4 ? '2 / - 1' : ''};
 
   &:hover {
