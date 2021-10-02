@@ -1,9 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { MenuItemContainer } from './Menu-item.styles';
-
-import './Menu-item.scss';
+import {
+  MenuItemContainer,
+  BGImage,
+  Content,
+  Title,
+  Subtitle
+} from './Menu-item.styles';
 
 const MenuItem = ({ id, title, imageUrl, size, linkUrl }) => {
   const history = useHistory()
@@ -11,16 +15,13 @@ const MenuItem = ({ id, title, imageUrl, size, linkUrl }) => {
   return (
     <MenuItemContainer
       id={id}
-      imageUrl={imageUrl}
       size={`${size}`}
       onClick={() => history.push(`${linkUrl}`)}>
-
-      <div className="content">
-        <h1 className="title">{title}</h1>
-        <span className="subtitle">Shop Now</span>
-      </div>
-
-
+      <BGImage imageUrl={imageUrl} />
+      <Content>
+        <Title>{title}</Title>
+        <Subtitle>Shop Now</Subtitle>
+      </Content>
     </MenuItemContainer>
   );
 };
