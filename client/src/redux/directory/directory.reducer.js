@@ -3,12 +3,14 @@ const INITIAL_STATE = {
     {
       title: 'hats',
       imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+      size: 'small',
       id: 1,
       linkUrl: 'shop/hats',
     },
     {
       title: 'jackets',
       imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+      size: 'small',
       id: 2,
       linkUrl: 'shop/jackets',
     },
@@ -17,6 +19,7 @@ const INITIAL_STATE = {
       imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
       id: 3,
       linkUrl: 'shop/sneakers',
+      size: 'small',
     },
     {
       title: 'womens',
